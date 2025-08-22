@@ -17,6 +17,7 @@ runs:
   using: "composite"
   steps:
     - name: Check if version is supported
+      shell: bash
       run: |
         HTTP_CODE=$(curl -L -s -o /dev/null -w "%{http_code}" 'https://search.devbox.sh/v2/resolve?name=verilator&version=${{ inputs.version }}' -H 'Accept: application/json')
         if [ "$HTTP_CODE" -ne "200" ]; then
@@ -25,6 +26,7 @@ runs:
         fi
     - name: Check if devbox is installed
       id: check_devbox
+      shell: bash
       run: |
         # Check if the file exists using the test command
         if [ -f "~/.local/bin/devbox" ]; then
@@ -34,10 +36,12 @@ runs:
         fi
     - name: create devbox project folder
       if: ${{ steps.check_devbox.outputs.exists == 'false' }}
+      shell: bash
       run: |
         echo "devbox_project_path=$(mktemp -d)" >> $GITHUB_ENV
     - name: create devbox.json (dummy, only for the install)
       if: ${{ steps.check_devbox.outputs.exists == 'false' }}
+      shell: bash
       run: |
         echo '{
           "packages": {
@@ -51,17 +55,21 @@ runs:
         enable-cache: 'true'
     - name: Add devbox to PATH
       if: ${{ steps.check_devbox.outputs.exists == 'true' }}
+      shell: bash
       run: |
         echo 'export PATH="$HOME/.local/bin:$PATH"' >> $GITHUB_ENV
     - name: Add verilator
+      shell: bash
       run: |
         . <(devbox global shellenv)
         devbox global add verilator@${{ inputs.version }}
     - name: Run verilator
+      shell: bash
       run: |
         . <(devbox global shellenv)
         verilator ${{ inputs.arguments }}
     - name: Clean up
+      shell: bash
       run: |
         . <(devbox global shellenv)
         devbox global rm verilator
