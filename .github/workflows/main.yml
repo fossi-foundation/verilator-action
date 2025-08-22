@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  verilator-version:
+    name: Verilator version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Verilator version
+        uses: ./
+        with:
+          version: latest
+          arguments: '--version'
+      - name: Verilator version 
+        uses: ./
+        with:
+          version: 5.038
+          arguments: '--version'
+      - name: Verilator version
+        uses: ./
+        with:
+          version: 5.034
+          arguments: '--version'
+      - name: Verilator version (expected fail)
+        continue-on-error: true
+        uses: ./
+        with:
+          version: 5.037
+          arguments: '--version'
+
+  verilator-lint:
+    name: Verilator lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Verilator lint
+        uses: ./
+        with:
+          version: latest
+          arguments: '--lint-only testdata/A.v'
