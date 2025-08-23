@@ -27,6 +27,7 @@ import require$$6 from 'string_decoder';
 import require$$0$9 from 'diagnostics_channel';
 import require$$2$3 from 'child_process';
 import require$$6$1 from 'timers';
+import { check_pkg_version } from './devbox.js';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -31244,6 +31245,8 @@ requireGithub();
 try {
   const version = coreExports.getInput("version");
   coreExports.info(`Requested Verilator version ${version}`);
+
+  check_pkg_version("verilator");
 
 } catch (error) {
   coreExports.setFailed(error.message);

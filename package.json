@@ -21,7 +21,8 @@
   "homepage": "https://github.com/fossi-foundation/verilator-action#readme",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.1"
+    "@actions/github": "^6.0.1",
+    "@actions/http-client": "^2.2.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",

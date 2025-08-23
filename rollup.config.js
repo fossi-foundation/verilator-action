@@ -2,12 +2,12 @@ import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 const config = {
-  input: "src/index.js",
+  input: ["src/index.js", "src/devbox.js"],
   output: {
     esModule: true,
-    file: "dist/index.js",
+    dir: "dist",
     format: "es",
-    sourcemap: true,
+    sourcemap: true
   },
   plugins: [commonjs(), nodeResolve({ preferBuiltins: true })],
 };
