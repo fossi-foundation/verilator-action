@@ -1,6 +1,31 @@
-function check_pkg_version(pkgName) {
-    
-}
-
-export { check_pkg_version };
+export { d as check_pkg_version } from './devbox-CS9oQuPd.js';
+import 'os';
+import 'crypto';
+import 'fs';
+import 'path';
+import 'http';
+import 'https';
+import 'net';
+import 'tls';
+import 'events';
+import 'assert';
+import 'util';
+import 'stream';
+import 'buffer';
+import 'querystring';
+import 'stream/web';
+import 'node:stream';
+import 'node:util';
+import 'node:events';
+import 'worker_threads';
+import 'perf_hooks';
+import 'util/types';
+import 'async_hooks';
+import 'console';
+import 'url';
+import 'zlib';
+import 'string_decoder';
+import 'diagnostics_channel';
+import 'child_process';
+import 'timers';
 //# sourceMappingURL=devbox.js.map
