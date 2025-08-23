@@ -9,8 +9,7 @@ try {
 
     let pkg_version = await devbox.check_pkg_version("verilator", version);
     if (pkg_version === null) {
-            core.error(`Could not resolve Verilator version ${version}`);
-            return;
+            throw new Error(`Could not resolve Verilator version ${version}`);
     }
     core.info(`Resolved Verilator version ${pkg_version}`);
 

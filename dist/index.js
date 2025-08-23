@@ -3992,16 +3992,16 @@ function requireGithub () {
 requireGithub();
 
 try {
-  const version = coreExports.getInput("version");
-  coreExports.info(`Requested Verilator version ${version}`);
+    const version = coreExports.getInput("version");
+    coreExports.info(`Requested Verilator version ${version}`);
 
-  let pkg_version = await check_pkg_version("verilator", version);
-  if (pkg_version === null) {
-      coreExports.error(`Could not resolve Verilator version ${version}`);
-  }
-  coreExports.info(`Resolved Verilator version ${pkg_version}`);
+    let pkg_version = await check_pkg_version("verilator", version);
+    if (pkg_version === null) {
+            throw new Error(`Could not resolve Verilator version ${version}`);
+    }
+    coreExports.info(`Resolved Verilator version ${pkg_version}`);
 
 } catch (error) {
-  coreExports.setFailed(error.message);
+    coreExports.setFailed(error.message);
 }
 //# sourceMappingURL=index.js.map

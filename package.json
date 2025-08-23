@@ -22,7 +22,8 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
-    "@actions/http-client": "^2.2.3"
+    "@actions/http-client": "^2.2.3",
+    "rollup-plugin-delete": "^3.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
