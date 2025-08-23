@@ -1,7 +1,4 @@
-on:
-  push:
-    branches:
-      - main
+on: [push, workflow_dispatch]
 
 jobs:
   verilator-version:
@@ -14,7 +11,6 @@ jobs:
       - name: Verilator version
         uses: ./
         with:
-          version: latest
           arguments: '--version'
       - name: Verilator version 
         uses: ./
@@ -33,6 +29,32 @@ jobs:
           version: 5.037
           arguments: '--version'
 
+  verilator-calls:
+    name: Verilator calls
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Verilator lint as argument
+        uses: ./
+        with:
+          arguments: '--lint-only testdata/A.v'
+      - name: Verilator lint as argument
+        uses: ./
+        with:
+          arguments: '--lint-only A.v'
+          working-directory: testdata
+      - name: Verilator lint as run
+        uses: ./
+        with:
+          run: 'verilator --lint-only A.v'
+          working-directory: testdata
+      - name: Verilator lint as own action
+        uses: ./
+        with:
+          lint-files: 'testdata/A.v'
+
   verilator-lint:
     name: Verilator lint
     runs-on: ubuntu-latest
@@ -40,8 +62,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Verilator lint
+      - name: Verilator lint A
         uses: ./
         with:
-          version: latest
-          arguments: '--lint-only testdata/A.v'
+          lint-files: 'testdata/A.v'
+      - name: Verilator lint B
+        uses: ./
+        continue-on-error: true
+        with:
+          lint-files: 'testdata/B.v'
+      - name: Verilator lint B with waiver
+        uses: ./
+        with:
+          lint-files: 'testdata/B.v'
+          lint-waivers: 'waive.vlt'

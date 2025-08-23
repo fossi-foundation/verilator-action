@@ -1,0 +1,11 @@
+// DESCRIPTION: Verilator output: Waivers generated with --waiver-output
+
+`verilator_config
+
+// Below are suggested waivers. You have three options:
+//   1. Fix the reason for the linter warning in the Verilog sources
+//   2. Keep the waiver permanently if you are sure it is okay
+//   3. Keep the waiver temporarily to suppress the output
+
+lint_off -rule WIDTHEXPAND -file "*testdata/B.v" -match "Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's CONST '1'h1' generates 1 bits.*"
+
