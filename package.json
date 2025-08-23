@@ -1,0 +1,35 @@
+{
+  "name": "verilator-action",
+  "description": "Run Verilator at a specific version. It uses Nix and its wrapper devbox to run the requested version at low overhead.",
+  "version": "0.2.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fossi-foundation/verilator-action.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/fossi-foundation/verilator-action/issues"
+  },
+  "homepage": "https://github.com/fossi-foundation/verilator-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "rollup": "^4.48.0"
+  },
+  "scripts": {
+    "package": "npx rollup --config rollup.config.js",
+    "package:watch": "npm run package -- --watch"
+  }
+}
