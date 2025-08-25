@@ -21,6 +21,9 @@ inputs:
   lint-files:
     description: The files to lint with Verilator
     required: false
+  lint-waivers:
+    description: Files with lint waivers to apply
+    required: false
 
 runs:
   using: node20

@@ -4006,9 +4006,13 @@ try {
     const workingDirectory = coreExports.getInput("working-directory");
     const run = coreExports.getInput("run");
     const lintFiles = coreExports.getInput("lint-files");
+    const lintWaivers = coreExports.getInput("lint-waivers");
 
-    if ((lintFiles && (args || run)) || (args && run)) {
-        throw new Error("You can only specify one of 'arguments', 'run' or 'lint-files'");
+    if (lintFiles && run) {
+        throw new Error("You can only specify one of 'run' or 'lint-files'");
+    }
+    if (run && args) {
+        throw new Error("You can only specify one of 'run' or 'arguments'");
     }
 
     coreExports.info(`Requested Verilator version ${version}`);
@@ -4062,10 +4066,10 @@ try {
             }
         };
         options.ignoreReturnCode = true;
-        let ret = await execExports.exec(`devbox run verilator --lint-only ${lintFiles}`, [], options);
+        const waivers = lintWaivers ? `-f ${lintWaivers}` : '';
+        let ret = await execExports.exec(`devbox run verilator --lint-only ${lintFiles} ${waivers}`, [], options);
 
         if (ret != 0) {
-            coreExports.warning(`Verilator lint found issues`);
             warnings.forEach(warning => {
                 const annotationProperties = {
                     title: warning.message,

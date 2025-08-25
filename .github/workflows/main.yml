@@ -71,3 +71,8 @@ jobs:
         continue-on-error: true
         with:
           lint-files: 'testdata/B.v'
+      - name: Verilator lint B with waiver
+        uses: ./
+        with:
+          lint-files: 'testdata/B.v'
+          lint-waivers: 'waive.vlt'
