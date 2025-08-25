@@ -18,6 +18,7 @@ try {
     let pkg_version = await devbox.check_pkg_version("verilator", version);
     core.info(`Resolved Verilator version ${pkg_version}`);
 
+    core.startGroup("Prepare environment");
     await devbox.install_devbox();
 
     const options = {}
@@ -25,7 +26,6 @@ try {
         options.cwd = workingDirectory;
     }
 
-    core.startGroup("Prepare environment");
     await exec.exec('devbox init', [], options);
     await exec.exec(`devbox add verilator@${pkg_version}`, [], options);
     core.endGroup();

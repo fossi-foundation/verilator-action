@@ -4015,6 +4015,7 @@ try {
     let pkg_version = await check_pkg_version("verilator", version);
     coreExports.info(`Resolved Verilator version ${pkg_version}`);
 
+    coreExports.startGroup("Prepare environment");
     await install_devbox();
 
     const options = {};
@@ -4022,7 +4023,6 @@ try {
         options.cwd = workingDirectory;
     }
 
-    coreExports.startGroup("Prepare environment");
     await execExports.exec('devbox init', [], options);
     await execExports.exec(`devbox add verilator@${pkg_version}`, [], options);
     coreExports.endGroup();
