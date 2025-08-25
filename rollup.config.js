@@ -5,7 +5,7 @@ import json from "@rollup/plugin-json"
 
 
 const config = {
-  input: ["src/index.js", "src/devbox.js"],
+  input: ["src/index.js"],
   output: {
     esModule: true,
     dir: "dist",

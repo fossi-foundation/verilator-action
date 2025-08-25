@@ -1,7 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import * as exec from "@actions/exec"
-import * as devbox from "./devbox.js";
+import * as lib from "@fossi-foundation/github-action-lib"
 
 try {
     const version = core.getInput("version");
@@ -19,10 +19,12 @@ try {
     }
 
     core.info(`Requested Verilator version ${version}`);
-    let pkg_version = await devbox.check_pkg_version("verilator", version);
+    let pkg_version = await lib.devbox_check_pkg_version("verilator", version);
     core.info(`Resolved Verilator version ${pkg_version}`);
 
-    await devbox.install_devbox();
+    await lib.nix_ensure();
+    await lib.devbox_ensure();
+    await lib.restore_nixstore();
 
     const options = {}
     if (workingDirectory) {
@@ -70,7 +72,7 @@ try {
         };
         options.ignoreReturnCode = true;
         const waivers = lintWaivers ? `-f ${lintWaivers}` : '';
-        let ret = await exec.exec(`devbox run verilator --lint-only ${lintFiles} ${waivers}`, [], options);
+        let ret = await exec.exec(`devbox run verilator --lint-only ${lintFiles} ${waivers} ${args}`, [], options);
 
         if (ret != 0) {
             warnings.forEach(warning => {
@@ -87,9 +89,7 @@ try {
         }
     }
 
-    await devbox.cache_nix();
+    await lib.cache_nixstore();
 } catch (error) {
     core.setFailed(error.message);
-
-    await devbox.cache_nix();
 }
