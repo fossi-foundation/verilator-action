@@ -1,4 +1,4 @@
-import { r as requireLib, a as requireUndici, g as getDefaultExportFromCjs, b as getAugmentedNamespace, c as coreExports, d as check_pkg_version, i as install_devbox, e as execExports, f as cache_nix } from './devbox-BYwYvhJt.js';
+import { r as requireLib, a as requireUndici, g as getDefaultExportFromCjs, b as getAugmentedNamespace, c as coreExports, d as check_pkg_version, i as install_devbox, e as execExports, f as cache_nix } from './devbox-thNFPHrv.js';
 import require$$1__default from 'fs';
 import require$$0 from 'os';
 import 'crypto';

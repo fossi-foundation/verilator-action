@@ -62,7 +62,12 @@ export async function install_devbox() {
         core.addPath(cachedPath);
     }
     core.endGroup();
+    
+    core.startGroup("Restore nix store from cache");
+    await exec.exec('sudo chmod u+s /bin/tar');
     await cache.restoreCache(["/nix/store"], `nix-store-${process.platform}-${process.arch}`);
+    await exec.exec('sudo chmod u-s /bin/tar');
+    core.endGroup();
 }
 
 export async function cache_nix() {
