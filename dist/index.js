@@ -1,5 +1,5 @@
-import { r as requireLib, a as requireUndici, g as getDefaultExportFromCjs, b as getAugmentedNamespace, c as coreExports, d as check_pkg_version, i as install_devbox, e as execExports, f as cache_nix } from './devbox-BPlW39qf.js';
-import require$$1 from 'fs';
+import { r as requireLib, a as requireUndici, g as getDefaultExportFromCjs, b as getAugmentedNamespace, c as coreExports, d as check_pkg_version, i as install_devbox, e as execExports, f as cache_nix } from './devbox-BYwYvhJt.js';
+import require$$1__default from 'fs';
 import require$$0 from 'os';
 import 'crypto';
 import 'path';
@@ -49,7 +49,7 @@ function requireContext () {
 	hasRequiredContext = 1;
 	Object.defineProperty(context, "__esModule", { value: true });
 	context.Context = void 0;
-	const fs_1 = require$$1;
+	const fs_1 = require$$1__default;
 	const os_1 = require$$0;
 	class Context {
 	    /**

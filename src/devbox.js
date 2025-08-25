@@ -30,24 +30,25 @@ export async function check_pkg_version(pkgName, version) {
 }
 
 async function nix_ensure() {
-    core.info("Ensuring Nix is installed...");
-    let installerDir = tc.find('nix-installer', '3.8.6', process.arch);
-    if (!installerDir) {
-        core.info("Nix installer not cached. Downloading...");
-        let arch = process.arch === "arm64" ? "aarch64" : "x86_64";
-        const installerFile = await tc.downloadTool(`https://github.com/DeterminateSystems/nix-installer/releases/download/v3.8.6/nix-installer-${arch}-${process.platform}`);
-        await exec.exec(`chmod +x ${installerFile}`);
-        core.info(`Downloaded Nix installer to ${installerFile}`);
-        installerDir = await tc.cacheFile(installerFile, 'nix-installer', 'nix-installer', '3.8.6', process.arch);
-        core.info(`Cached Nix installer to ${installerDir}`);
+    core.startGroup("Ensuring Nix is installed");
+    if (!fs.existsSync(`/nix/var/nix/profiles/default/bin/nix`)) {
+        let installerDir = tc.find('nix-installer', '3.8.6', process.arch);
+        if (!installerDir) {
+            core.info("Nix installer not cached. Downloading");
+            let arch = process.arch === "arm64" ? "aarch64" : "x86_64";
+            const installerFile = await tc.downloadTool(`https://github.com/DeterminateSystems/nix-installer/releases/download/v3.8.6/nix-installer-${arch}-${process.platform}`);
+            await exec.exec(`chmod +x ${installerFile}`);
+            installerDir = await tc.cacheFile(installerFile, 'nix-installer', 'nix-installer', '3.8.6', process.arch);
+        }
+        await exec.exec(`${installerDir}/nix-installer install --no-confirm`);
     }
-
-    await exec.exec(`${installerDir}/nix-installer install --no-confirm`);
+    core.endGroup();
 }
 
 export async function install_devbox() {
     await nix_ensure();
 
+    core.startGroup("Ensuring devbox is installed");
     const devboxPath = tc.find('devbox', `0.16.0-${ process.platform }-${ process.arch }`);
     if (devboxPath) {
         core.info(`Devbox is already cached at: ${devboxPath}`);
@@ -60,7 +61,8 @@ export async function install_devbox() {
         const cachedPath = await tc.cacheDir(devboxExtractedFolder, 'devbox', `0.16.0-${ process.platform }-${ process.arch }`);
         core.addPath(cachedPath);
     }
-    //await cache.restoreCache(["/nix/store"], `nix-store-${process.platform}-${process.arch}`);
+    core.endGroup();
+    await cache.restoreCache(["/nix/store"], `nix-store-${process.platform}-${process.arch}`);
 }
 
 export async function cache_nix() {
