@@ -14,7 +14,6 @@ jobs:
       - name: Verilator version
         uses: ./
         with:
-          version: latest
           arguments: '--version'
       - name: Verilator version 
         uses: ./

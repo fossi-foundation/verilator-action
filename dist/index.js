@@ -1,4 +1,4 @@
-import { r as requireLib, a as requireUndici, g as getDefaultExportFromCjs, b as getAugmentedNamespace, c as coreExports, d as check_pkg_version } from './devbox-CS9oQuPd.js';
+import { r as requireLib, a as requireUndici, g as getDefaultExportFromCjs, b as getAugmentedNamespace, c as coreExports, d as check_pkg_version, i as install_devbox, e as execExports, f as cache_nix } from './devbox-DBmVPJl8.js';
 import require$$1 from 'fs';
 import require$$0 from 'os';
 import 'crypto';
@@ -28,6 +28,15 @@ import 'string_decoder';
 import 'diagnostics_channel';
 import 'child_process';
 import 'timers';
+import 'node:os';
+import 'node:process';
+import 'node:crypto';
+import 'node:http';
+import 'node:https';
+import 'node:zlib';
+import 'tty';
+import 'node:buffer';
+import 'node:fs';
 
 var github = {};
 
@@ -3993,15 +4002,22 @@ requireGithub();
 
 try {
     const version = coreExports.getInput("version");
+    const args = coreExports.getInput("arguments");
     coreExports.info(`Requested Verilator version ${version}`);
 
     let pkg_version = await check_pkg_version("verilator", version);
-    if (pkg_version === null) {
-            throw new Error(`Could not resolve Verilator version ${version}`);
-    }
     coreExports.info(`Resolved Verilator version ${pkg_version}`);
 
+    await install_devbox("latest");
+
+    await execExports.exec('devbox init');
+    await execExports.exec(`devbox add verilator@${pkg_version}`);
+    await execExports.exec(`devbox run verilator ${args}`);
+
+    await cache_nix();
 } catch (error) {
     coreExports.setFailed(error.message);
+
+    await cache_nix();
 }
 //# sourceMappingURL=index.js.map

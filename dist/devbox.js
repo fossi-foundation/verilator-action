@@ -1,7 +1,7 @@
-export { d as check_pkg_version } from './devbox-CS9oQuPd.js';
+export { f as cache_nix, d as check_pkg_version, i as install_devbox } from './devbox-DBmVPJl8.js';
+import 'fs';
 import 'os';
 import 'crypto';
-import 'fs';
 import 'path';
 import 'http';
 import 'https';
@@ -28,4 +28,13 @@ import 'string_decoder';
 import 'diagnostics_channel';
 import 'child_process';
 import 'timers';
+import 'node:os';
+import 'node:process';
+import 'node:crypto';
+import 'node:http';
+import 'node:https';
+import 'node:zlib';
+import 'tty';
+import 'node:buffer';
+import 'node:fs';
 //# sourceMappingURL=devbox.js.map

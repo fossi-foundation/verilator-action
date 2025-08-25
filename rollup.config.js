@@ -1,6 +1,8 @@
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import del from 'rollup-plugin-delete'
+import json from "@rollup/plugin-json"
+
 
 const config = {
   input: ["src/index.js", "src/devbox.js"],
@@ -10,7 +12,7 @@ const config = {
     format: "es",
     sourcemap: true
   },
-  plugins: [commonjs(), nodeResolve({ preferBuiltins: true }), del({ targets: 'dist' })],
+  plugins: [json(), commonjs(), nodeResolve({ preferBuiltins: true }), del({ targets: 'dist' })],
 };
 
 export default config;
