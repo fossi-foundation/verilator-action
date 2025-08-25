@@ -1,4 +1,4 @@
-export { f as cache_nix, d as check_pkg_version, i as install_devbox } from './devbox-DzqTnbk-.js';
+export { f as cache_nix, d as check_pkg_version, i as install_devbox } from './devbox-0FcN_XXG.js';
 import 'fs';
 import 'os';
 import 'crypto';

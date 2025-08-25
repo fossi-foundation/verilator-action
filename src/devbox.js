@@ -60,7 +60,7 @@ export async function install_devbox() {
         const cachedPath = await tc.cacheDir(devboxExtractedFolder, 'devbox', `0.16.0-${ process.platform }-${ process.arch }`);
         core.addPath(cachedPath);
     }
-    await cache.restoreCache(["/nix/store"], "nix");
+    //await cache.restoreCache(["/nix/store"], "nix");
 }
 
 export async function cache_nix() {
