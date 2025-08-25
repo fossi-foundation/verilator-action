@@ -4048,12 +4048,11 @@ try {
                 stdOut += data.toString();
             },
             stderr: (data) => {
-                coreExports.warning(`logerr: ${data.toString()}`);
                 const warningMatch = data.toString().match(/^.Warning-(.+): (.+):(\d+):(\d+): (.*)\R/);
                 if (warningMatch) {
                     warnings.push({
-                        type: warningMatch[0],
-                        file: warningMatch[1],
+                        type: warningMatch[1],
+                        file: warningMatch[2],
                         message: warningMatch[5],
                         line: parseInt(warningMatch[3]),
                         column: parseInt(warningMatch[4])
@@ -4069,7 +4068,7 @@ try {
             coreExports.warning(`Verilator lint found issues`);
             warnings.forEach(warning => {
                 const annotationProperties = {
-                    title: warning.type,
+                    title: warning.message,
                     file: warning.file,
                     startLine: warning.line,
                     endLine: warning.line,
