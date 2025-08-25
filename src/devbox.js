@@ -54,7 +54,7 @@ export async function install_devbox() {
         core.addPath(devboxPath);
     } else {
         core.info(`Devbox is not cached.`);
-        const downloadPath = await tc.downloadTool(`https://github.com/jetify-com/devbox/releases/download/0.16.0/devbox_0.16.0_${ process.platform }_${ process.arch }.tar.gz`);
+        const downloadPath = await tc.downloadTool(`https://github.com/jetify-com/devbox/releases/download/0.16.0/devbox_0.16.0_${ process.platform }_${ process.arch == "x64" ? "amd64" : process.arch }.tar.gz`);
         const devboxExtractedFolder = await tc.extractTar(downloadPath);
 
         const cachedPath = await tc.cacheDir(devboxExtractedFolder, 'devbox', `0.16.0-${ process.platform }-${ process.arch }`);
