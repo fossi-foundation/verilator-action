@@ -9,9 +9,18 @@ inputs:
     description: The version of Verilator to use
     required: false
     default: latest
+  working-directory:
+    description: The working directory to run Verilator in
+    required: false
   arguments:
     description: The arguments to pass to Verilator
-    required: true
+    required: false
+  run:
+    description: The command to run with Verilator
+    required: false
+  lint-files:
+    description: The files to lint with Verilator
+    required: false
 
 runs:
   using: node20
