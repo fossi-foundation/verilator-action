@@ -75,4 +75,4 @@ jobs:
         uses: ./
         with:
           lint-files: 'testdata/B.v'
-          lint-waivers: 'waive.vlt'
+          lint-waivers: 'testdata/waive.vlt'
