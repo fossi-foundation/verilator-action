@@ -87662,6 +87662,7 @@ try {
     coreExports.startGroup("Prepare environment");
     await execExports.exec('devbox init', [], options);
     await execExports.exec(`devbox add verilator@${pkg_version}`, [], options);
+    await execExports.exec(`devbox add zlib -o dev`, [], options);
     coreExports.endGroup();
 
     if (args) {

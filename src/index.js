@@ -34,6 +34,7 @@ try {
     core.startGroup("Prepare environment");
     await exec.exec('devbox init', [], options);
     await exec.exec(`devbox add verilator@${pkg_version}`, [], options);
+    await exec.exec(`devbox add zlib -o dev`, [], options);
     core.endGroup();
 
     if (args) {
