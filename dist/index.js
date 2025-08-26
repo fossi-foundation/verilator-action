@@ -87679,40 +87679,43 @@ try {
         const options = {};
 
         let warnings = [];
+        let errors = [];
 
         options.listeners = {
             stdout: (data) => {
                 stdOut += data.toString();
             },
             stderr: (data) => {
-                const warningMatch = data.toString().match(/^.Warning-(.+): (.+):(\d+):(\d+): (.*)\R/);
-                if (warningMatch) {
-                    warnings.push({
-                        type: warningMatch[1],
-                        file: warningMatch[2],
-                        message: warningMatch[5],
-                        line: parseInt(warningMatch[3]),
-                        column: parseInt(warningMatch[4])
-                    });
+                const match = data.toString().match(/^.(Warning|Error)-(.+): (.+):(\d+):(\d+): (.+)$/m);
+                if (match) {
+                    const annotationProperties = {
+                        title: `Verilator Lint ${match[1]}`,
+                        file: match[3],
+                        startLine: parseInt(match[4]),
+                        endLine: parseInt(match[4]),
+                        startColumn: parseInt(match[5]),
+                        endColumn: parseInt(match[5])
+                    };
+                    if (match[1] === "Warning") {
+                        warnings.push([annotationProperties,match[6]]);
+                    } else {
+                        errors.push([annotationProperties,match[6]]);
+                    }
                 }
                 stdErr += data.toString();
-            }
+            } 
         };
         options.ignoreReturnCode = true;
-        const waivers = lintWaivers ? `-f ${lintWaivers}` : '';
-        let ret = await execExports.exec(`devbox run verilator --lint-only ${lintFiles} ${waivers} ${args}`, [], options);
+        let ret = await execExports.exec(`devbox run verilator --lint-only ${lintFiles} ${lintWaivers} ${args}`, [], options);
 
         if (ret != 0) {
             warnings.forEach(warning => {
-                const annotationProperties = {
-                    title: warning.message,
-                    file: warning.file,
-                    startLine: warning.line,
-                    endLine: warning.line,
-                    startColumn: warning.column,
-                    endColumn: warning.column
-                };
-                coreExports.warning(warning.message, annotationProperties);
+                const [annotationProperties, message] = warning;
+                coreExports.warning(message, annotationProperties);
+            });
+            errors.forEach(error => {
+                const [annotationProperties, message] = error;
+                coreExports.error(message, annotationProperties);
             });
         }
     }
