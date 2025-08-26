@@ -1,7 +1,7 @@
 {
   "name": "verilator-action",
   "description": "Run Verilator at a specific version. It uses Nix and its wrapper devbox to run the requested version at low overhead.",
-  "version": "0.2",
+  "version": "0.3",
   "license": "MIT",
   "type": "module",
   "exports": {

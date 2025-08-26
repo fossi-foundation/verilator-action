@@ -24,7 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Verilator version
-        uses: fossi-foundation/verilator-action@v0.2
+        uses: fossi-foundation/verilator-action@v0.3
         with:
           version: latest
           run: '--version'
@@ -46,7 +46,7 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
         - name: Verilator version
-          uses: fossi-foundation/verilator-action@v0.2
+          uses: fossi-foundation/verilator-action@v0.3
           with:
             version: latest
             run: 'verilator --version'
@@ -70,7 +70,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Verilator version
-        uses: fossi-foundation/verilator-action@v0.2
+        uses: fossi-foundation/verilator-action@v0.3
         with:
           version: latest
           run: 'verilator --version'
@@ -94,7 +94,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Verilator version
-        uses: fossi-foundation/verilator-action@v0.2
+        uses: fossi-foundation/verilator-action@v0.3
         with:
           version: latest
           lint-files: 'src/mymodule.v'
