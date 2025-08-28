@@ -38,11 +38,17 @@ try {
     core.endGroup();
 
     if (args) {
-        await exec.exec(`devbox run verilator ${args}`, [], options);
+        let ret = await exec.exec(`devbox run verilator ${args}`, [], options);
+        if (ret != 0) {
+            core.setFailed("Command failed");
+        }
     }
 
     if (run) {
-        await exec.exec(`devbox run ${run}`, [], options);
+        let ret = await exec.exec(`devbox run ${run}`, [], options);
+        if (ret != 0) {
+            core.setFailed("Command failed");
+        }
     }
 
     if (lintFiles) {
@@ -90,6 +96,7 @@ try {
                 const [annotationProperties, message] = error;
                 core.error(message, annotationProperties);
             });
+            throw new Error("Verilator linting failed");
         }
     }
 

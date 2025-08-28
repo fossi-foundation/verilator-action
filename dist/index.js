@@ -87666,11 +87666,17 @@ try {
     coreExports.endGroup();
 
     if (args) {
-        await execExports.exec(`devbox run verilator ${args}`, [], options);
+        let ret = await execExports.exec(`devbox run verilator ${args}`, [], options);
+        if (ret != 0) {
+            coreExports.setFailed("Command failed");
+        }
     }
 
     if (run) {
-        await execExports.exec(`devbox run ${run}`, [], options);
+        let ret = await execExports.exec(`devbox run ${run}`, [], options);
+        if (ret != 0) {
+            coreExports.setFailed("Command failed");
+        }
     }
 
     if (lintFiles) {
@@ -87718,6 +87724,7 @@ try {
                 const [annotationProperties, message] = error;
                 coreExports.error(message, annotationProperties);
             });
+            throw new Error("Verilator linting failed");
         }
     }
 
