@@ -40,14 +40,15 @@ try {
     if (args) {
         let ret = await exec.exec(`devbox run verilator ${args}`, [], options);
         if (ret != 0) {
-            core.setFailed("Command failed");
+            throw new Error("Command failed");
         }
     }
 
     if (run) {
         let ret = await exec.exec(`devbox run ${run}`, [], options);
+        core.info(`ret: ${ret}`);
         if (ret != 0) {
-            core.setFailed("Command failed");
+            throw new Error("Command failed");
         }
     }
 

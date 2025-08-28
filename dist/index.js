@@ -87668,14 +87668,15 @@ try {
     if (args) {
         let ret = await execExports.exec(`devbox run verilator ${args}`, [], options);
         if (ret != 0) {
-            coreExports.setFailed("Command failed");
+            throw new Error("Command failed");
         }
     }
 
     if (run) {
         let ret = await execExports.exec(`devbox run ${run}`, [], options);
+        coreExports.info(`ret: ${ret}`);
         if (ret != 0) {
-            coreExports.setFailed("Command failed");
+            throw new Error("Command failed");
         }
     }
 
