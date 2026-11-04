@@ -27,7 +27,7 @@ jobs:
         uses: fossi-foundation/verilator-action@v0.3
         with:
           version: latest
-          run: '--version'
+          arguments: '--version'
 ```
 
 You can also set the working directory with the `working-directory` input.
@@ -50,30 +50,6 @@ jobs:
           with:
             version: latest
             run: 'verilator --version'
-  ```
-
-You can also set the working directory with the `working-directory` input.
-
-### Lint your code
-
-This will nicely present the result of linting in GitHub.
-
-```
-on: push
-
-jobs:
-  verilator-version:
-    name: Verilator version
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Verilator version
-        uses: fossi-foundation/verilator-action@v0.3
-        with:
-          version: latest
-          run: 'verilator --version'
   ```
 
 You can also set the working directory with the `working-directory` input.
